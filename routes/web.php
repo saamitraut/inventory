@@ -117,7 +117,6 @@ Route::get('/', 'Outward_masterController@index');
 Route::post('/', 'Outward_masterController@index');
 Route::get('/add-outward_master', 'Outward_masterController@add');
 Route::post('/add-outward_master-post', 'Outward_masterController@addPost');
-Route::post('/search-outward_master-post', 'Outward_masterController@searchPost');
 Route::get('/delete-outward_master/{id}', 'Outward_masterController@delete');
 Route::get('/edit-outward_master/{id}', 'Outward_masterController@edit');
 Route::post('/edit-outward_master-post', 'Outward_masterController@editPost');

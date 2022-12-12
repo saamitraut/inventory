@@ -50,38 +50,7 @@ class Outward_masterController extends Controller {
                         $outward_master_id = Outward_master::insert($outward_master_data);
         return redirect('outward_master')->with('message', 'Outward_master successfully added');
     }
-    public function searchPost()
-      {
-        // $outward_master_data = array(
-        //      'material_id' => Input::get('material_id'), 
-        //      'material_description' => Input::get('material_description'), 
-        //      'opening_stock' => Input::get('opening_stock'), 
-        //      'issued' => Input::get('issued'), 
-        //      'closing_stock' => Input::get('closing_stock'), 
-        //      'unit_id' => Input::get('unit_id'), 
-        //      'created_at' => Input::get('created_at'), 
-            
-        //     );
-        // echo request()->input('material_id'); exit;
-                        
-        if (request()->has('material_id')) {
-            $data['outward_masters']=Outward_master::where('material_id', '=', request()->input('material_id'))->get();
-        }
-        // print_r($data['outward_masters']); exit;
-        // $data['outward_masters'] = Outward_master::all();
-        $data['suppliers'] = Supplier::all()->toArray();  
-        $data['units']=Unit_master::all()->toArray();        
-        $materials = Material_master::all()->toArray(); 
-        $res=array();
-        foreach ($materials as $material) {
-          $res[$material['id']]=$material;
-        }
-        // echo '<pre>'; print_r($res); exit;     
-        $data['materials'] = $res;
-        return view('outward_master/index',$data);
-        
-    }
-
+    
     public function delete($id)
     {   
         $outward_master=Outward_master::find($id);
