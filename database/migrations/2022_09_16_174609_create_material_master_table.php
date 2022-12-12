@@ -18,6 +18,7 @@ class CreateMaterialMasterTable extends Migration
             $table->string('name'); 
             $table->string('rate'); 
             $table->string('status')->default('0');
+            $table->string('unit')->default('0');
             $table->timestamps();
         });
     }

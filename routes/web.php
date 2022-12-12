@@ -114,8 +114,10 @@ Route::get('/view-return_master/{id}', 'Return_masterController@view');
 Route::group(array('prefix' => 'outward_master'), function()
 {
 Route::get('/', 'Outward_masterController@index');
+Route::post('/', 'Outward_masterController@index');
 Route::get('/add-outward_master', 'Outward_masterController@add');
 Route::post('/add-outward_master-post', 'Outward_masterController@addPost');
+Route::post('/search-outward_master-post', 'Outward_masterController@searchPost');
 Route::get('/delete-outward_master/{id}', 'Outward_masterController@delete');
 Route::get('/edit-outward_master/{id}', 'Outward_masterController@edit');
 Route::post('/edit-outward_master-post', 'Outward_masterController@editPost');
@@ -165,3 +167,19 @@ Route::get('/change-status-Supplier/{id}', 'SupplierController@changeStatus');
 Route::get('/view-Supplier/{id}', 'SupplierController@view');
 });
 // end of Supplier routes
+// routes for list.
+Route::group(array('prefix' => 'list'), function()
+{
+Route::get('/', 'ListController@index');
+Route::get('/add-list', 'ListController@add');
+Route::post('/add-list-post', 'ListController@addPost');
+Route::get('/delete-list/{id}', 'ListController@delete');
+Route::get('/edit-list/{id}', 'ListController@edit');
+Route::post('/edit-list-post', 'ListController@editPost');
+Route::get('/change-status-list/{id}', 'ListController@changeStatus');
+Route::get('/view-list/{id}', 'ListController@view');
+});
+// end of list routes
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

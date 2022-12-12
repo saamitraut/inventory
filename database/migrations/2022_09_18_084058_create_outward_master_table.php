@@ -15,6 +15,7 @@ class CreateOutwardMasterTable extends Migration
     {
         Schema::create('outward_master', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('material_id'); 
             $table->string('material_description'); 
             $table->string('opening_stock'); 
             $table->string('issued'); 

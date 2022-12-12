@@ -12,13 +12,17 @@
         <div class="card-body">
 <form role="form" method="post" action="{{Request::root()}}/inward_master/edit-inward_master-post" enctype="multipart/form-data">
 <input type="hidden" name="_token" value="{{ csrf_token() }}">
- <input type="hidden" value="<?php echo $inward_master->id ?>"   name="inward_master_id">
+ <input type="hidden" value="{{$inward_master->id }}"   name="inward_master_id">
 
 
-      <div class="mb-3">
-    <label for="material_id">Material_id:</label>
-    <input type="number" value="<?php echo $inward_master->material_id ?>" class="form-control" id="material_id" name="material_id">
-  </div>
+ <div class="mb-3">
+  <label for="defaultSelect" class="form-label">Material</label>
+  <select id="material_id" name="material_id" class="form-select">
+    <option>Select Material</option>                  
+    @foreach($materials as $material)
+      <option {{$inward_master->material_id==$material['id']?'selected':''}} value="{{$material['id']}}">{{ $material['name'] }}</option>
+    @endforeach
+  </select></div>
     <div class="mb-3">
     <label for="material_description">Material_description:</label>
     <input type="text" value="<?php echo $inward_master->material_description ?>" class="form-control" id="material_description" name="material_description">

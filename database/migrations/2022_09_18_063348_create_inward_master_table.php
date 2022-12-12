@@ -17,7 +17,7 @@ class CreateInwardMasterTable extends Migration
             // $table->string('unit')->nullable(); 
             $table->string('return')->nullable(); 
             $table->string('rate')->nullable(); 
-            // $table->string('amount')->nullable(); 
+            $table->string('amount')->nullable(); 
             $table->date('receivedon')->nullable(); 
             $table->string('status')->default('0');
             $table->timestamps();

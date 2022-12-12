@@ -49,6 +49,8 @@ class Inward_masterController extends Controller {
     public function edit($id)
     {   
         $data['inward_master']=Inward_master::find($id);
+        $data['materials'] = Material_master::all()->toArray();        
+        
         return view('inward_master/edit',$data);
     }
     public function editPost()
@@ -59,10 +61,10 @@ class Inward_masterController extends Controller {
         $inward_master_data = array(
           'material_id' => Input::get('material_id'), 
           'material_description' => Input::get('material_description'), 
-          'opening_stock' => Input::get('opening_stock'), 
+          // 'opening_stock' => Input::get('opening_stock'), 
           'received' => Input::get('received'), 
           'return' => Input::get('return'), 
-          'unit' => Input::get('unit'), 
+          // 'unit' => Input::get('unit'), 
           'rate' => Input::get('rate'), 
           'amount' => Input::get('amount'), 
         );
