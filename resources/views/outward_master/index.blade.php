@@ -145,6 +145,7 @@ Search
   </div>
 </div>
 <!-- Modal end -->
+
 @if(count($outward_masters)>0)
   <table class="table table-hover">
     <thead>
@@ -175,9 +176,12 @@ Search
                 <a class="dropdown-item" href="{{Request::root()}}/outward_master/change-status-outward_master/{{$outward_master->id }}"
                   ><i class="bx bx-windows me-1"></i> @if($outward_master->status==0) {{"Activate"}}  @else {{"Dectivate"}} @endif</a
                 >
-                <a class="dropdown-item" href="{{Request::root()}}/outward_master/edit-outward_master/{{$outward_master->id}}"
+                {{-- <a class="dropdown-item" href="{{Request::root()}}/outward_master/edit-outward_master/{{$outward_master->id}}"
                   ><i class="bx bx-edit-alt me-1"></i> Edit</a
-                >
+                > --}}
+                <a data-bs-toggle="modal"
+data-bs-target="#basicModal3" class="dropdown-item" href="#"
+                  ><i class="bx bx-edit-alt me-1"></i> Edit</a>
                 <a class="dropdown-item" href="{{Request::root()}}/outward_master/delete-outward_master/{{$outward_master->id}}" onclick="return confirm('are you sure to delete')"
                   ><i class="bx bx-trash me-1"></i> Delete</a
                 >
@@ -186,11 +190,75 @@ Search
           </td>
 
       </tr>
+
+      <!-- Modal -->
+<div class="modal fade" id="basicModal3" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel1">Edit Outward Entries</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+          <form role="form" method="post" action="{{Request::root()}}/outward_master/edit-outward_master-post" enctype="multipart/form-data">
+<input type="hidden" name="_token" value="{{ csrf_token() }}">
+ <input type="hidden" value="{{$outward_master->id }}"   name="outward_master_id">
+
+
+ <div class="mb-3">
+  <label for="defaultSelect" class="form-label">Material</label>
+  <select id="material_id" name="material_id" class="form-select">
+    <option>Select Material</option>                  
+    @foreach($materials as $material)
+      <option {{$outward_master->material_id==$material['id']?'selected':''}} value="{{$material['id']}}">{{ $material['name'] }}</option>
+    @endforeach
+  </select></div>
+    <div class="mb-3">
+    <label for="material_description">Material_description:</label>
+    <input type="text" value="<?php echo $outward_master->material_description ?>" class="form-control" id="material_description" name="material_description">
+  </div>
+    <div class="mb-3">
+    <label for="opening_stock">Opening_stock:</label>
+    <input type="text" value="<?php echo $outward_master->opening_stock ?>" class="form-control" id="opening_stock" name="opening_stock">
+  </div>
+    <div class="mb-3">
+    <label for="issued">Issued:</label>
+    <input type="number" value="<?php echo $outward_master->issued ?>" class="form-control" id="issued" name="issued">
+  </div>
+    <div class="mb-3">
+    <label for="closing_stock">Closing_stock:</label>
+    <input type="number" value="<?php echo $outward_master->closing_stock ?>" class="form-control" id="closing_stock" name="closing_stock">
+  </div>
+    <div class="mb-3">
+       <label for="unit_id">Unit_id:</label>
+    <input type="number" value="<?php echo $outward_master->unit_id ?>" class="form-control" id="unit_id" name="unit_id">
+  </div>
+ 
+              
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+          Close
+        </button>
+        <button type="submit" class="btn btn-primary">Save changes</button> </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal end -->
     <?php $i++;  ?>
     @endforeach
-    </tbody>
-  </table>
-   @else
+   
+    {{ $outward_masters->render() }} 
+  </tbody>  
+</table>
+   
+  @else
   <div class="alert alert-info" role="alert">
                     <strong>No Outward_masters Found!</strong>
                 </div>

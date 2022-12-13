@@ -13,7 +13,7 @@ class Outward_masterController extends Controller {
 
     public function index()
       { 
-        $data['outward_masters'] = Outward_master::all();
+        $data['outward_masters'] = Outward_master::paginate(5);
 
         if (request()->has('material_id')) {
             $data['outward_masters']=Outward_master::where('material_id', '=', request()->input('material_id'))->get();
@@ -28,7 +28,10 @@ class Outward_masterController extends Controller {
         // echo '<pre>'; print_r($res); exit;     
         $data['materials'] = $res;
         
-        return view('outward_master/index',$data);
+    return view('outward_master/index',$data)
+        ->with('i', (request()->input('page', 1) - 1) * 5);
+        
+        // return view('outward_master/index',$data);
       }
     public function add()
       { 
