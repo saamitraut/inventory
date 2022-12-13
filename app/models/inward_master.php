@@ -7,4 +7,5 @@ use Eloquent;
 class Inward_master extends Eloquent  {
 
     protected $table = 'inward_master';
+    protected $dates = ['receivedon'];
 }

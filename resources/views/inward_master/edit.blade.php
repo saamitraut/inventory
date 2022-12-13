@@ -13,8 +13,6 @@
 <form role="form" method="post" action="{{Request::root()}}/inward_master/edit-inward_master-post" enctype="multipart/form-data">
 <input type="hidden" name="_token" value="{{ csrf_token() }}">
  <input type="hidden" value="{{$inward_master->id }}"   name="inward_master_id">
-
-
  <div class="mb-3">
   <label for="defaultSelect" class="form-label">Material</label>
   <select id="material_id" name="material_id" class="form-select">

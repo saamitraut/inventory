@@ -9,6 +9,8 @@ use App\Models\Unit_master as Unit_master;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
 use Hash;
+use Carbon\Carbon;
+
 class Outward_masterController extends Controller {
 
     public function index()
@@ -47,7 +49,9 @@ class Outward_masterController extends Controller {
              'issued' => Input::get('issued'), 
              'closing_stock' => Input::get('closing_stock'), 
              'unit_id' => Input::get('unit_id'), 
-             'created_at' => Input::get('created_at'), 
+             'created_at' => Carbon::now()->toDateTimeString(), 
+
+             'issuedon' => Input::get('issuedon'),
             
             );
                         $outward_master_id = Outward_master::insert($outward_master_data);
@@ -69,20 +73,19 @@ class Outward_masterController extends Controller {
     public function editPost()
     {   
         $id =Input::get('outward_master_id');
-        $outward_master=Outward_master::find($id);
-                                                       
+        $outward_master=Outward_master::find($id);                                                       
         $outward_master_data = array(
           'material_id' => Input::get('material_id'), 
           'material_description' => Input::get('material_description'), 
           'opening_stock' => Input::get('opening_stock'), 
           'issued' => Input::get('issued'), 
           'closing_stock' => Input::get('closing_stock'), 
-          'unit_id' => Input::get('unit_id'), 
+          'unit_id' => Input::get('unit_id'),          
+          'issuedon' => Input::get('issuedon'),
         );
         $outward_master_id = Outward_master::where('id', '=', $id)->update($outward_master_data);
         return redirect('outward_master')->with('message', 'Outward_master Updated successfully');
     }
-
      
     public function changeStatus($id)
     {   
@@ -94,7 +97,6 @@ class Outward_masterController extends Controller {
      public function view($id)
     {   
         $data['outward_master']=Outward_master::find($id);
-
          $data['units']=Unit_master::all()->toArray();
         $data['materials'] = Material_master::all()->toArray();
         return view('outward_master/view',$data);

@@ -179,6 +179,20 @@ Route::get('/change-status-list/{id}', 'ListController@changeStatus');
 Route::get('/view-list/{id}', 'ListController@view');
 });
 // end of list routes
+// routes for Stock.
+Route::group(array('prefix' => 'Stock'), function()
+{
+Route::get('/', 'StockController@index');
+Route::get('/add-Stock', 'StockController@add');
+Route::post('/add-Stock-post', 'StockController@addPost');
+Route::get('/delete-Stock/{id}', 'StockController@delete');
+Route::get('/edit-Stock/{id}', 'StockController@edit');
+Route::post('/edit-Stock-post', 'StockController@editPost');
+Route::get('/change-status-Stock/{id}', 'StockController@changeStatus');
+Route::get('/view-Stock/{id}', 'StockController@view');
+});
+// end of Stock routes
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');

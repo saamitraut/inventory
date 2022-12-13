@@ -17,11 +17,13 @@ class CreateOutwardMasterTable extends Migration
             $table->increments('id');
             $table->integer('material_id'); 
             $table->string('material_description'); 
-            $table->string('opening_stock'); 
+            $table->string('opening_stock')->nullable(); 
             $table->string('issued'); 
-            $table->string('closing_stock'); 
-            $table->string('unit_id'); 
+            $table->string('closing_stock')->nullable();  
+            $table->string('unit_id')->nullable();  
             $table->string('status')->default('0');
+            $table->timestamp('issuedon');
+
             $table->timestamps();
         });
     }

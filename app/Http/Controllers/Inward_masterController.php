@@ -6,26 +6,40 @@ use App\Models\Unit_master as Unit_master;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
 use Hash;
-
+use Carbon\Carbon;
 class Inward_masterController extends Controller {
 
     public function index()
       { 
         $data['inward_masters'] = Inward_master::all();
-        $data['suppliers'] = Supplier::all()->toArray();  
+        // $data['suppliers'] = Supplier::all()->toArray();  
         $data['units']=Unit_master::all()->toArray();
         
-        $data['materials'] = Material_master::all()->toArray();        
+        $materials= Material_master::all()->toArray();   
+        $res=array();
+        foreach ($materials as $material) {
+          $res[$material['id']]=$material;
+        }
+        $data['materials'] = $res;   
+        
+        $suppliers = Supplier::all()->toArray();  
+        $res=array();
+        foreach ($suppliers as $supplier) {
+          $res[$supplier['id']]=$supplier;
+        }
+        $data['suppliers'] = $res; 
+        
         return view('inward_master/index',$data);
       }
     
-    public function add()
+   
+      public function add()
       { 
         $data['materials'] = Material_master::all();
         return view('inward_master/add',$data);
       }
     public function addPost()
-      {
+      {        
         $inward_master_data = array(
              'material_id' => Input::get('material_id'), 
              'material_description' => Input::get('material_description'), 
@@ -34,8 +48,11 @@ class Inward_masterController extends Controller {
              'return' => Input::get('return'), 
              'rate' => Input::get('rate'),
              'receivedon' => Input::get('receivedon'),             
-             'amount' => Input::get('rate')*Input::get('received'), 
+             'amount' => Input::get('rate')*Input::get('received'),
+             'created_at' => Carbon::now()->toDateTimeString(), 
             );
+            // echo '<pre>'; print_r($inward_master_data); exit;
+
         $inward_master_id = Inward_master::insert($inward_master_data);
         
         return redirect('inward_master')->with('message', 'Inward_master successfully added');
@@ -56,18 +73,22 @@ class Inward_masterController extends Controller {
     public function editPost()
     {   
         $id =Input::get('inward_master_id');
-        $inward_master=Inward_master::find($id);
-                                                                       
+        
+        $inward_master=Inward_master::find($id);  
+
         $inward_master_data = array(
           'material_id' => Input::get('material_id'), 
           'material_description' => Input::get('material_description'), 
           // 'opening_stock' => Input::get('opening_stock'), 
           'received' => Input::get('received'), 
           'return' => Input::get('return'), 
-          // 'unit' => Input::get('unit'), 
+          'supplier' => Input::get('supplier'), 
           'rate' => Input::get('rate'), 
           'amount' => Input::get('amount'), 
+          'receivedon' => Input::get('receivedon'), 
         );
+        // echo '<pre>'; print_r($inward_master_data); exit;
+        
         $inward_master_id = Inward_master::where('id', '=', $id)->update($inward_master_data);
         return redirect('inward_master')->with('message', 'Inward_master Updated successfully');
     }

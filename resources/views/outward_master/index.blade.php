@@ -37,6 +37,7 @@ Add Outward Entries
           aria-label="Close"
         ></button>
       </div>
+      
       <div class="modal-body">
           <form role="form" method="post" action="/outward_master/add-outward_master-post" >
               <input type="hidden" name="_token" value="{{ csrf_token() }}">
@@ -50,7 +51,7 @@ Add Outward Entries
                   @endforeach
                 </select>
               </div>
-                <div class="mb-3">
+                <div class="mb-3 d-none">
                 <label for="defaultSelect" class="form-label">Unit_id:</label>
                 <select id="unit_id" name="unit_id" class="form-select">
                   <option>Select Unit</option>                  
@@ -65,7 +66,7 @@ Add Outward Entries
   </div>
     <div class="form-group">
     <label for="opening_stock">Opening_stock:</label>
-    <input type="number" class="form-control" id="opening_stock" name="opening_stock" required>
+    <input type="number" class="form-control" id="opening_stock" name="opening_stock" >
   </div>
     <div class="form-group">
     <label for="issued">Issued:</label>
@@ -73,14 +74,18 @@ Add Outward Entries
   </div>
     <div class="form-group">
     <label for="closing_stock">Closing_stock:</label>
-    <input type="number" class="form-control" id="closing_stock" name="closing_stock" required>
+    <input type="number" class="form-control" id="closing_stock" name="closing_stock" >
   </div>
- <div class="mb-3">
+ {{-- <div class="mb-3">
                 <label for="created_at" class="col-md-2 col-form-label">Created At</label>
                 <div class="col-md-10"><input class="form-control" type="date" value="" id="created_at" name="created_at" required>
                 </div>
+              </div> --}}
+  <div class="mb-3">
+                <label for="issuedon" class="col-md-2 col-form-label">Issued On</label>
+                <div class="col-md-10"><input class="form-control" type="date" value="" id="issuedon" name="issuedon" required>
+                </div>
               </div>
-              
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
@@ -153,7 +158,8 @@ Search
         <th>SL No</th>
         <th>Material</th>
         <th>Issued</th>
-        <th>Created_at</th>
+        <th>IssuedOn</th>
+        <th>CreatedOn</th>
        <th>Actions</th>
       </tr>
     </thead>
@@ -165,6 +171,7 @@ Search
         {{-- <td> <a href="{{Request::root()}}/outward_master/view-outward_master/{{$outward_master->id}}" > {{$outward_master->material_id }}</a> </td> --}}
 <td> <a href="{{Request::root()}}/inward_master/view-inward_master/{{$outward_master->id}}" > {{$materials[$outward_master->material_id]['name'] }}</a> </td>  
  <td> {{$outward_master->issued}}</td>
+ <td> {{$outward_master->issuedon}}</td>
  <td> {{$outward_master->created_at}}</td>
         
         <td>  
@@ -180,7 +187,7 @@ Search
                   ><i class="bx bx-edit-alt me-1"></i> Edit</a
                 > --}}
                 <a data-bs-toggle="modal"
-data-bs-target="#basicModal3" class="dropdown-item" href="#"
+data-bs-target="#basicModall{{$i}}" class="dropdown-item" href="#"
                   ><i class="bx bx-edit-alt me-1"></i> Edit</a>
                 <a class="dropdown-item" href="{{Request::root()}}/outward_master/delete-outward_master/{{$outward_master->id}}" onclick="return confirm('are you sure to delete')"
                   ><i class="bx bx-trash me-1"></i> Delete</a
@@ -192,11 +199,11 @@ data-bs-target="#basicModal3" class="dropdown-item" href="#"
       </tr>
 
       <!-- Modal -->
-<div class="modal fade" id="basicModal3" tabindex="-1" aria-hidden="true">
+<div class="modal fade" id="basicModall{{$i}}" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel1">Edit Outward Entries</h5>
+        <h5 class="modal-title" id="exampleModalLabell">Edit Outward Entries</h5>
         <button
           type="button"
           class="btn-close"
@@ -238,6 +245,13 @@ data-bs-target="#basicModal3" class="dropdown-item" href="#"
        <label for="unit_id">Unit_id:</label>
     <input type="number" value="<?php echo $outward_master->unit_id ?>" class="form-control" id="unit_id" name="unit_id">
   </div>
+
+  
+  <div class="mb-3">
+                <label for="issuedon" class="col-md-2 col-form-label">Issued On</label>
+                <div class="col-md-10"><input class="form-control" type="date" value="<?php echo is_null($outward_master->issuedon) ?'':$outward_master->issuedon->format('Y-m-d'); ?>" id="issuedon" name="issuedon" required>
+                </div>
+              </div>
  
               
       </div>
@@ -253,8 +267,9 @@ data-bs-target="#basicModal3" class="dropdown-item" href="#"
 <!-- Modal end -->
     <?php $i++;  ?>
     @endforeach
-   
+   @if(Request::isMethod('GET'))
     {{ $outward_masters->render() }} 
+    @endif
   </tbody>  
 </table>
    

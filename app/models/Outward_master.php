@@ -7,4 +7,5 @@ use Eloquent;
 class Outward_master extends Eloquent  {
 
     protected $table = 'outward_master';
+    protected $dates = ['issuedon'];
 }
