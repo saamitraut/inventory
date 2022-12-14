@@ -23,6 +23,7 @@ return array(
     'App\\Http\\Controllers\\Purpose_masterController' => $baseDir . '/app/Http/Controllers/Purpose_masterController.php',
     'App\\Http\\Controllers\\Requiredfor_masterController' => $baseDir . '/app/Http/Controllers/Requiredfor_masterController.php',
     'App\\Http\\Controllers\\Return_masterController' => $baseDir . '/app/Http/Controllers/Return_masterController.php',
+    'App\\Http\\Controllers\\StockController' => $baseDir . '/app/Http/Controllers/StockController.php',
     'App\\Http\\Controllers\\SupplierController' => $baseDir . '/app/Http/Controllers/SupplierController.php',
     'App\\Http\\Controllers\\Unit_masterController' => $baseDir . '/app/Http/Controllers/Unit_masterController.php',
     'App\\Http\\Controllers\\Usage_masterController' => $baseDir . '/app/Http/Controllers/Usage_masterController.php',

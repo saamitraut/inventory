@@ -192,6 +192,19 @@ Route::get('/change-status-Stock/{id}', 'StockController@changeStatus');
 Route::get('/view-Stock/{id}', 'StockController@view');
 });
 // end of Stock routes
+// routes for report.
+Route::group(array('prefix' => 'report'), function()
+{
+Route::get('/', 'ReportController@index');
+Route::get('/add-report', 'ReportController@add');
+Route::post('/add-report-post', 'ReportController@addPost');
+Route::get('/delete-report/{id}', 'ReportController@delete');
+Route::get('/edit-report/{id}', 'ReportController@edit');
+Route::post('/edit-report-post', 'ReportController@editPost');
+Route::get('/change-status-report/{id}', 'ReportController@changeStatus');
+Route::get('/view-report/{id}', 'ReportController@view');
+});
+// end of report routes
 
 Auth::routes();
 
