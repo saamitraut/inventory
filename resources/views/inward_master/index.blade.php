@@ -24,6 +24,14 @@ data-bs-target="#basicModal" style="margin-bottom: 15px"
 >
 Add inward
 </button>
+<button
+type="button"
+class="btn btn-primary"
+ style="margin-bottom: 15px"
+ id="exporttable"
+>
+Export
+</button>
 <!-- Modal -->
 <div class="modal fade" id="basicModal" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -97,7 +105,7 @@ Add inward
 <!-- Modal end -->
 
 @if(count($inward_masters)>0)
-  <table class="table table-hover">
+  <table class="table table-hover" id="htmltable">
     <thead>
       <tr>
         <th>SL No</th>
@@ -109,7 +117,7 @@ Add inward
         <th>Return</th>
         <th>ReceivedOn</th>
         <th>CreateddOn</th>
-        <th>Actions</th>
+        <th id='noExl'>Actions</th>
       </tr>
     </thead>
     <tbody>
@@ -125,7 +133,7 @@ Add inward
           <td>{{$inward_master->return}}</td><td>{{is_null($inward_master->receivedon) ?'':$inward_master->receivedon}}</td>
 
           <td>{{$inward_master->created_at}}</td>
-          <td>
+          <td id='noExl'>
             <div class="dropdown">
               <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
                 <i class="bx bx-dots-vertical-rounded"></i>
@@ -145,7 +153,7 @@ data-bs-target="#basicModall{{$i}}" class="dropdown-item" href="#"
               </div>
             </div>
           </td>
-          {{-- <td><a href="{{Request::root()}}/inward_master/change-status-inward_master/{{$inward_master->id }}" > @if($inward_master->status==0) {{"Activate"}}  @else {{"Dectivate"}} @endif </a>
+          {{-- <td class="noExport"><a href="{{Request::root()}}/inward_master/change-status-inward_master/{{$inward_master->id }}" > @if($inward_master->status==0) {{"Activate"}}  @else {{"Dectivate"}} @endif </a>
         <a href="{{Request::root()}}/inward_master/edit-inward_master/{{$inward_master->id}}" >Edit</a>
         <a href="{{Request::root()}}/inward_master/delete-inward_master/{{$inward_master->id}}" onclick="return confirm('are you sure to delete')">Delete</a>
         </td> --}}
@@ -185,9 +193,7 @@ data-bs-target="#basicModall{{$i}}" class="dropdown-item" href="#"
                 <select id="defaultSelect" name="supplier" class="form-select">
                   <option>Select Supplier</option>                  
                   @foreach($suppliers as $supplier)
-                    <option 
-                    {{$supplier['id']==$inward_master->supplier?'selected':''}}
-                    value="{{$supplier['id']}}">{{ $supplier['name'] }}</option>
+                    <option {{$supplier['id']==$inward_master->supplier?'selected':''}} value="{{$supplier['id']}}">{{ $supplier['name'] }}</option>
                   @endforeach
                 </select>
               </div>
@@ -232,14 +238,15 @@ data-bs-target="#basicModall{{$i}}" class="dropdown-item" href="#"
   </div>
 </div>
 <!-- Modal end -->
-    <?php $i++;  ?>
-    @endforeach    
-    </tbody>
-    @if(Request::isMethod('GET'))
+<?php $i++;  ?>
+   
+  </tbody> 
+  @endforeach
+   @if(Request::isMethod('GET'))
     {{ $inward_masters->render() }} 
-    @endif    
-  </table>
-   @else
+    @endif 
+</table>
+@else
   <div class="alert alert-info" role="alert">
                     <strong>No Inward_masters Found!</strong>
                 </div>

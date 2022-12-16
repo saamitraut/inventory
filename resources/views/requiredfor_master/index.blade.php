@@ -52,17 +52,29 @@
                 </div>
               </div>
               <!-- Modal end -->
+
+              <!-- Export start -->
+<button
+type="button"
+class="btn btn-primary"
+ style="margin-bottom: 15px"
+ id="exporttable">
+Export
+</button>
+<!-- Export end -->
+
+
 @if(count($requiredfor_masters)>0)
 <div class="card">
   <h5 class="card-header">Manage requiredfor Master</h5>
   <div class=" text-nowrap">
-  <table class="table table-hover">
+  <table class="table table-hover" id="htmltable">
     <thead>
       <tr>
         <th>SL No</th>
         <th>name</th>
         <th>Status</th>
-       <th>Actions</th>
+       <th id='noExl'>Actions</th>
       </tr>
     </thead>
     <tbody>
@@ -74,7 +86,7 @@
         
         <td><span class="badge bg-label-{{$requiredfor_master->status?'primary':'warning' }} me-1">{{$requiredfor_master->status?'Active':'Pending' }}</span></td>  
                           <td>
-        <td>
+        <td id='noExl'>
           <div class="dropdown">
             <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
               <i class="bx bx-dots-vertical-rounded"></i>
@@ -96,8 +108,11 @@
 
       </tr>
     <?php $i++;  ?>
-    @endforeach
     </tbody>
+    @endforeach
+   @if(Request::isMethod('GET'))
+    {{ $requiredfor_masters->render() }} 
+    @endif
   </table>
    @else
   <div class="alert alert-info" role="alert">

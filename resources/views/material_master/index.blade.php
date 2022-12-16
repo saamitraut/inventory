@@ -60,18 +60,30 @@ Add Material
 </div>
 <!-- Modal end -->
 
+
+<!-- Export start -->
+<button
+type="button"
+class="btn btn-primary"
+ style="margin-bottom: 15px"
+ id="exporttable">
+Export
+</button>
+<!-- Export end -->
+
+
 @if(count($material_masters)>0)
 <div class="card">
   <h5 class="card-header">Manage Material Master</h5>
   <div class=" text-nowrap">
-  <table class="table table-hover">
+  <table class="table table-hover" id="htmltable">
     <thead>
       <tr>
         <th>SL No</th>
         <th>Name</th>
        <th>Unit</th>
        <th>Status</th>
-       <th>Actions</th>
+       <th id='noExl'>Actions</th>
       </tr>
     </thead>
     <tbody>
@@ -83,7 +95,7 @@ Add Material
         <td> <a href="{{Request::root()}}/material_master/view-material_master/{{$material_master->id}}" > {{$material_master->name }}</a> </td>
         <td>{{$material_master->unit?$units[$material_master->unit-1]['name']:''}}</td>        
         <td><span class="badge bg-label-{{$material_master->status?'primary':'warning' }} me-1">{{$material_master->status?'Active':'Pending' }}</span></td>        
-        <td>
+        <td id='noExl'>
           <div class="dropdown">            
             <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
               <i class="bx bx-dots-vertical-rounded"></i>
@@ -103,8 +115,12 @@ Add Material
         </td>
     </tr>
     <?php $i++;  ?>
-    @endforeach
+    
     </tbody>
+    @endforeach
+   @if(Request::isMethod('GET'))
+    {{ $material_masters->render() }} 
+    @endif
   </table>
    @else
   <div class="alert alert-info" role="alert">

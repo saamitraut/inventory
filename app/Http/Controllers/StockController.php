@@ -12,7 +12,8 @@ class StockController extends Controller {
 
     public function index()
       { 
-        $data['Stocks'] = Stock::orderBy('date')->get();
+        $data['Stocks'] = Stock::orderBy('date')-> paginate(5);
+   
          $materials= Material_master::all()->toArray();   
         $res=array();
         foreach ($materials as $material) {
@@ -35,7 +36,7 @@ class StockController extends Controller {
         $data['materials'] = $res; 
         $data['suppliers'] = $res; 
         $data['inward_masters'] = Inward_master::all();
-        return view('Stock/index',$data);
+        return view('Stock/index',$data)->with('i', (request()->input('page', 1) - 1) * 5);
       }
     public function add()
       { 

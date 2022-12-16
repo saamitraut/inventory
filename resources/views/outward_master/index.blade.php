@@ -159,9 +159,19 @@ Search
   </div>
 </div>
 <!-- Modal end -->
+<!-- Export start -->
+<button
+type="button"
+class="btn btn-primary"
+ style="margin-bottom: 15px"
+ id="exporttable">
+Export
+</button>
+<!-- Export end -->
+
 
 @if(count($outward_masters)>0)
-  <table class="table table-hover">
+  <table class="table table-hover" id="htmltable">
     <thead>
       <tr>
         <th>SL No</th>
@@ -169,7 +179,8 @@ Search
         <th>Issued</th>
         <th>IssuedOn</th>
         <th>CreatedOn</th>
-       <th>Actions</th>
+        <th>Branch</th>
+       <th id='noExl'>Actions</th>
       </tr>
     </thead>
     <tbody>
@@ -182,8 +193,9 @@ Search
  <td> {{$outward_master->issued}}</td>
  <td> {{$outward_master->issuedon}}</td>
  <td> {{$outward_master->created_at}}</td>
+ <td> {{$outward_master->branch}}</td>
         
-        <td>  
+        <td  id='noExl'>  
             <div class="dropdown">
               <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
                 <i class="bx bx-dots-vertical-rounded"></i>
@@ -275,8 +287,8 @@ data-bs-target="#basicModall{{$i}}" class="dropdown-item" href="#"
 </div>
 <!-- Modal end -->
     <?php $i++;  ?>
-    @endforeach  
   </tbody> 
+  @endforeach
    @if(Request::isMethod('GET'))
     {{ $outward_masters->render() }} 
     @endif 

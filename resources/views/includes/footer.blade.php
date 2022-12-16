@@ -17,8 +17,12 @@
     <!-- Main JS -->
     <script src="/assets/js/main.js"></script>
 
+     <!-- Personal JS -->
+     <script src="/assets/js/main2.js"></script>
+
     <!-- Page JS -->
     <script src="/assets/js/dashboards-analytics.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/jquery.table2excel.min.js"></script>
 
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
