@@ -8,6 +8,7 @@ use App\Models\Unit_master as Unit_master;
 
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
+use App\Models\Branch_master as Branch_master;
 use Hash;
 use Carbon\Carbon;
 
@@ -30,10 +31,17 @@ class Outward_masterController extends Controller {
         // echo '<pre>'; print_r($res); exit;     
         $data['materials'] = $res;
         
-    return view('outward_master/index',$data);
-        //->with('i', (request()->input('page', 1) - 1) * 5);
+        $Branches = Branch_master::all()->toArray(); 
         
-        // return view('outward_master/index',$data);
+        $res=array();
+        foreach ($Branches as $Branch) {
+          $res[$Branch['id']]=$Branch;
+        }
+        // echo '<pre>'; print_r($res); exit;     
+        $data['Branches'] = $res;
+        
+        return view('outward_master/index',$data);
+        
       }
     public function add()
       { 
