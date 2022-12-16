@@ -2,6 +2,7 @@
 
 use App\Models\Outward_master as Outward_master;
 use App\Models\Material_master as Material_master;
+use App\Models\Branch_master as Branch_master;
 use App\Models\Supplier as Supplier;
 use App\Models\Inward_master as Inward_master;
 use App\Models\Unit_master as Unit_master;
@@ -21,6 +22,10 @@ class Outward_masterController extends Controller {
             $data['outward_masters']=Outward_master::where('material_id', '=', request()->input('material_id'))->get();
         }
         $data['suppliers'] = Supplier::all()->toArray();  
+        // $data['branch_masters'] = Branch_master::all()->toArray();
+        if (request()->has('branch_id')) {
+          $data['outward_masters']=Outward_master::where('branch_id', '=', request()->input('branch_id'))->get();
+      }
         $data['units']=Unit_master::all()->toArray();        
         $materials = Material_master::all()->toArray(); 
         $res=array();
@@ -30,8 +35,7 @@ class Outward_masterController extends Controller {
         // echo '<pre>'; print_r($res); exit;     
         $data['materials'] = $res;
         
-    return view('outward_master/index',$data)
-        ->with('i', (request()->input('page', 1) - 1) * 5);
+    return view('outward_master/index',$data);
         
         // return view('outward_master/index',$data);
       }
@@ -50,8 +54,9 @@ class Outward_masterController extends Controller {
              'closing_stock' => Input::get('closing_stock'), 
              'unit_id' => Input::get('unit_id'), 
              'created_at' => Carbon::now()->toDateTimeString(), 
+             'unit_id' => Input::get('unit_id'),
 
-             'issuedon' => Input::get('issuedon'),
+             'branch' => Input::get('branch'),
             
             );
                         $outward_master_id = Outward_master::insert($outward_master_data);

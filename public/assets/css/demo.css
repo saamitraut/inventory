@@ -105,3 +105,17 @@
   text-align: center;
   margin-top: 1rem;
 }
+
+.pagination li{
+  padding: 3px 10px;
+  background-color: #696cff;
+  color: #fff;
+  margin: 2px;
+  border-radius: 100%;
+}
+.pagination li a{
+  color: #fff;
+}
+.pagination .active{
+  color: #000;
+}

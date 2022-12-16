@@ -10,7 +10,7 @@ class Material_masterController extends Controller {
 
     public function index()
       { 
-        $data['material_masters'] = Material_master::all();
+        $data['material_masters'] = Material_master::paginate(5);
         $data['units'] = Unit_master::all()->toArray();
         return view('material_master/index',$data);
       }

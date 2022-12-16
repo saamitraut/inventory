@@ -8,7 +8,7 @@ class Branch_masterController extends Controller {
 
     public function index()
       { 
-        $data['branch_masters'] = Branch_master::all();
+        $data['branch_masters'] = Branch_master::paginate(5);
         return view('branch_master/index',$data);
       }
     public function add()
@@ -21,7 +21,7 @@ class Branch_masterController extends Controller {
              'name' => Input::get('name'), 
             );
     $branch_master_id = Branch_master::insert($branch_master_data);
-        return redirect('branch_master')->with('message', 'Branch_master successfully added');
+        return redirect('branch_master')->with('message', 'Branch_master successfully added')->with('i', (request()->input('page', 1) - 1) * 5);
     }
     public function delete($id)
     {   

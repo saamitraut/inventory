@@ -8,7 +8,7 @@ class Requiredfor_masterController extends Controller {
 
     public function index()
       { 
-        $data['requiredfor_masters'] = Requiredfor_master::all();
+        $data['requiredfor_masters'] = Requiredfor_master::paginate(5);
         return view('requiredfor_master/index',$data);
       }
     public function add()

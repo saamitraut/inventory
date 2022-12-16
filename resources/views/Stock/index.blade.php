@@ -104,8 +104,19 @@ Report
   </div>
 </div>
 <!-- Modal end -->
+
+<!-- Export start -->
+<button
+type="button"
+class="btn btn-primary"
+ style="margin-bottom: 15px"
+ id="exporttable">
+Export
+</button>
+<!-- Export end -->
+
 @if(count($Stocks)>0)
-  <table class="table table-hover">
+  <table class="table table-hover" id="htmltable">
     <thead>
       <tr>
         <th>SL No</th>
@@ -113,7 +124,7 @@ Report
         <th>Credit</th>
         <th>Debit</th>
         <th>Date</th>
-       <th>Actions</th>
+       <th id='noExl'>Actions</th>
       </tr>
     </thead>
     <tbody>
@@ -127,7 +138,7 @@ Report
 <td> {{$Stock->debit }}</td>
 <td> {{$Stock->date->format('Y-m-d') }}</td>
  
-         <td>
+         <td id='noExl'>
           <div class="dropdown">            
             <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
               <i class="bx bx-dots-vertical-rounded"></i>
@@ -147,8 +158,11 @@ Report
         </td>
 
       </tr>
-    <?php $i++;  ?>
+      <?php $i++;  ?>
     @endforeach
+   @if(Request::isMethod('GET'))
+    {{ $Stocks->render() }} 
+    @endif
     </tbody>
   </table>
    @else
