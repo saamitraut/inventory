@@ -219,7 +219,7 @@ Export
  <td> {{$outward_master->issued}}</td>
  <td> {{$outward_master->issuedon}}</td>
  <td> {{$outward_master->created_at}}</td>
- <td> {{$outward_master->branch}}</td>
+ <td> {{$Branches[$outward_master->branch_id]['name'] }}</td>
         
         <td  id='noExl'>  
             <div class="dropdown">
@@ -278,7 +278,7 @@ data-bs-target="#basicModall{{$i}}" class="dropdown-item" href="#"
                 <select id="branch_id" name="branch_id" class="form-select">
                   <option>Select Branch</option>                  
                   @foreach($Branches as $Branch)
-                    <option value="{{$Branch['id']}}">{{ $Branch['name'] }}</option>
+                    <option {{$outward_master->branch_id==$Branch['id']?'selected':''}} value="{{$Branch['id']}}">{{ $Branch['name'] }}</option>
                   @endforeach
                 </select></div>
     
