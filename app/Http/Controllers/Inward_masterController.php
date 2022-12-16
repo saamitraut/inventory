@@ -11,7 +11,7 @@ class Inward_masterController extends Controller {
 
     public function index()
       { 
-        $data['inward_masters'] = Inward_master::all();
+        $data['inward_masters'] = Inward_master::paginate(5);
         // $data['suppliers'] = Supplier::all()->toArray();  
         $data['units']=Unit_master::all()->toArray();
         

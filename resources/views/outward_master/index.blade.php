@@ -266,11 +266,11 @@ data-bs-target="#basicModall{{$i}}" class="dropdown-item" href="#"
 </div>
 <!-- Modal end -->
     <?php $i++;  ?>
-    @endforeach
+    @endforeach  
+  </tbody> 
    @if(Request::isMethod('GET'))
     {{ $outward_masters->render() }} 
-    @endif
-  </tbody>  
+    @endif 
 </table>
    
   @else
