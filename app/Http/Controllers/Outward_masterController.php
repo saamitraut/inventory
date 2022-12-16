@@ -82,6 +82,7 @@ class Outward_masterController extends Controller {
           'closing_stock' => Input::get('closing_stock'), 
           'unit_id' => Input::get('unit_id'),          
           'issuedon' => Input::get('issuedon'),
+          'branch_id' => Input::get('branch_id'),   
         );
         $outward_master_id = Outward_master::where('id', '=', $id)->update($outward_master_data);
         return redirect('outward_master')->with('message', 'Outward_master Updated successfully');

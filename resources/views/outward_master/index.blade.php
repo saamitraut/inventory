@@ -168,8 +168,34 @@ class="btn btn-primary"
 Export
 </button>
 <!-- Export end -->
+@if(count($outward_masters)>0)
+  @foreach($outward_masters as $outward_master)
+    <?php $i=1 ?>
+    <div class="card mb-4">
+                    <div class="card-body">
+                      <h5 class="card-title"><a href="{{Request::root()}}/inward_master/view-inward_master/{{$outward_master->id}}" > {{$materials[$outward_master->material_id]['name'] }}</a></h5>
+                      <div class="card-subtitle text-muted mb-3">{{$outward_master->issued}} issued on {{$outward_master->issuedon->format('Y-m-d')}} to the branch 
+                        {{$Branches[$outward_master->branch_id]['name'] }} </div>
+                      <p class="card-text">
+                        Some quick example text to build on the card title and make up the bulk of the card's content.
+                      </p>
+                      <a href="javascript:void(0)" class="card-link">Card link</a>
+                      <a href="javascript:void(0)" class="card-link">Another link</a>
+                    </div>
+                  </div>
 
-
+                  {{-- <div class="card mb-4">
+                    <ul class="list-group list-group-flush">
+                      <li class="list-group-item"> <a href="{{Request::root()}}/inward_master/view-inward_master/{{$outward_master->id}}" > {{$materials[$outward_master->material_id]['name'] }}</a> {{$outward_master->issued}} issued on {{$outward_master->issuedon->format('Y-m-d')}} to the branch 
+                        {{$Branches[$outward_master->branch_id]['name'] }} 
+                      </li>
+                      <li class="list-group-item">Dapibus ac facilisis in</li>
+                      <li class="list-group-item">Vestibulum at eros</li>
+                    </ul>
+                  </div> --}}
+    <?php $i++;  ?>
+  @endforeach
+@endif
 @if(count($outward_masters)>0)
   <table class="table table-hover" id="htmltable">
     <thead>
@@ -246,6 +272,16 @@ data-bs-target="#basicModall{{$i}}" class="dropdown-item" href="#"
       <option {{$outward_master->material_id==$material['id']?'selected':''}} value="{{$material['id']}}">{{ $material['name'] }}</option>
     @endforeach
   </select></div>
+
+  <div class="mb-3">
+                <label for="defaultSelect" class="form-label">Branch</label>
+                <select id="branch_id" name="branch_id" class="form-select">
+                  <option>Select Branch</option>                  
+                  @foreach($Branches as $Branch)
+                    <option value="{{$Branch['id']}}">{{ $Branch['name'] }}</option>
+                  @endforeach
+                </select></div>
+    
     <div class="mb-3">
     <label for="material_description">Material_description:</label>
     <input type="text" value="<?php echo $outward_master->material_description ?>" class="form-control" id="material_description" name="material_description">
@@ -256,18 +292,12 @@ data-bs-target="#basicModall{{$i}}" class="dropdown-item" href="#"
   </div>
     <div class="mb-3">
     <label for="issued">Issued:</label>
-    <input type="number" value="<?php echo $outward_master->issued ?>" class="form-control" id="issued" name="issued">
+    <input type="text" value="<?php echo $outward_master->issued ?>" class="form-control" id="issued" name="issued">
   </div>
     <div class="mb-3">
     <label for="closing_stock">Closing_stock:</label>
-    <input type="number" value="<?php echo $outward_master->closing_stock ?>" class="form-control" id="closing_stock" name="closing_stock">
-  </div>
-    <div class="mb-3">
-       <label for="unit_id">Unit_id:</label>
-    <input type="number" value="<?php echo $outward_master->unit_id ?>" class="form-control" id="unit_id" name="unit_id">
-  </div>
-
-  
+    <input type="text" value="<?php echo $outward_master->closing_stock ?>" class="form-control" id="closing_stock" name="closing_stock">
+  </div>  
   <div class="mb-3">
                 <label for="issuedon" class="col-md-2 col-form-label">Issued On</label>
                 <div class="col-md-10"><input class="form-control" type="date" value="<?php echo is_null($outward_master->issuedon) ?'':$outward_master->issuedon->format('Y-m-d'); ?>" id="issuedon" name="issuedon" required>
