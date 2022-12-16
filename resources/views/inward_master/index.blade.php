@@ -238,7 +238,6 @@ data-bs-target="#basicModall{{$i}}" class="dropdown-item" href="#"
   </div>
 </div>
 <!-- Modal end -->
-<<<<<<< HEAD
 <?php $i++;  ?>
    
   </tbody> 
@@ -248,16 +247,6 @@ data-bs-target="#basicModall{{$i}}" class="dropdown-item" href="#"
     @endif 
 </table>
 @else
-=======
-    <?php $i++;  ?>
-    @endforeach    
-    </tbody>
-    @if(Request::isMethod('GET'))
-    {{ $inward_masters->render() }} 
-    @endif    
-  </table>
-   @else
->>>>>>> 49993bb9c54e2be4d5bfb1afed8f7003f8da1328
   <div class="alert alert-info" role="alert">
                     <strong>No Inward_masters Found!</strong>
                 </div>

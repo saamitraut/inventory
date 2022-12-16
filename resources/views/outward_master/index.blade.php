@@ -51,15 +51,7 @@ Add Outward Entries
                   @endforeach
                 </select>
               </div>
-              <!-- <div class="mb-3">
-                <label for="defaultSelect" class="form-label">Branch:</label>
-                <select id="branch_id" name="branch_id" class="form-select">
-                  <option>Select Branch</option>                  
-                  @foreach($branchs as $branch)
-                    <option value="{{$branch['id']}}">{{ $branch['name'] }}</option>
-                  @endforeach
-                </select>
-              </div> -->
+              
                 <div class="mb-3 d-none">
                 <label for="defaultSelect" class="form-label">Unit_id:</label>
                 <select id="unit_id" name="unit_id" class="form-select">
@@ -287,13 +279,8 @@ data-bs-target="#basicModall{{$i}}" class="dropdown-item" href="#"
 </div>
 <!-- Modal end -->
     <?php $i++;  ?>
-<<<<<<< HEAD
   </tbody> 
   @endforeach
-=======
-    @endforeach  
-  </tbody> 
->>>>>>> 49993bb9c54e2be4d5bfb1afed8f7003f8da1328
    @if(Request::isMethod('GET'))
     {{ $outward_masters->render() }} 
     @endif 
