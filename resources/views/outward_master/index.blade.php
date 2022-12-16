@@ -51,6 +51,15 @@ Add Outward Entries
                   @endforeach
                 </select>
               </div>
+              <div class="mb-3">
+                <label for="defaultSelect" class="form-label">Branch</label>
+                <select id="branch_id" name="branch_id" class="form-select">
+                  <option>Select Branch</option>                  
+                  @foreach($Branches as $Branch)
+                    <option value="{{$Branch['id']}}">{{ $Branch['name'] }}</option>
+                  @endforeach
+                </select>
+              </div>
                 <div class="mb-3 d-none">
                 <label for="defaultSelect" class="form-label">Unit_id:</label>
                 <select id="unit_id" name="unit_id" class="form-select">
