@@ -1,5 +1,5 @@
 <?php namespace App\Http\Controllers;
-
+use App\Models\Requiredfor_master as Requiredfor_master;
 use App\Models\Outward_master as Outward_master;
 use App\Models\Material_master as Material_master;
 use App\Models\Branch_master as Branch_master;
@@ -8,6 +8,7 @@ use App\Models\Inward_master as Inward_master;
 use App\Models\Unit_master as Unit_master;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
+use App\Models\Purpose_master as Purpose_master;
 use Hash;
 use Carbon\Carbon;
 
@@ -27,7 +28,11 @@ class Outward_masterController extends Controller {
         
         $data['suppliers'] = Supplier::all()->toArray();       
         
-        $data['units']=Unit_master::all()->toArray();  
+        $data['units']=Unit_master::all()->toArray(); 
+
+        $data['required_fors'] = Requiredfor_master::list(); 
+
+        $data['purposes'] = Purpose_master::list();
 
         $data['materials'] = Material_master::list();
         
@@ -52,7 +57,16 @@ class Outward_masterController extends Controller {
              'unit_id' => Input::get('unit_id'), 
              'created_at' => Carbon::now()->toDateTimeString(), 
              'unit_id' => Input::get('unit_id'),
-             'branch' => Input::get('branch'),            
+             'branch_id' => Input::get('branch_id'), 
+             'required_for' => Input::get('required_for'),  
+             'purpose' => Input::get('purpose'),
+             'aa' => Input::get('aa'),
+             'customer_name' => Input::get('customer_name'),
+             'mobile' => Input::get('mobile'),
+             'area' => Input::get('area'),
+             'issued_to_staff' => Input::get('issued_to_staff'),
+             'responsible_person' => Input::get('responsible_person'),
+             'receipt_no' => Input::get('receipt_no'),          
             );
                         $outward_master_id = Outward_master::insert($outward_master_data);
         return redirect('outward_master')->with('message', 'Outward_master successfully added');
@@ -82,7 +96,17 @@ class Outward_masterController extends Controller {
           'closing_stock' => Input::get('closing_stock'), 
           'unit_id' => Input::get('unit_id'),          
           'issuedon' => Input::get('issuedon'),
-          'branch_id' => Input::get('branch_id'),   
+          'branch_id' => Input::get('branch_id'), 
+          'required_for' => Input::get('required_for'),  
+          'purpose' => Input::get('purpose'),
+          'aa' => Input::get('aa'),
+          'customer_name' => Input::get('customer_name'),
+          'mobile' => Input::get('mobile'),
+          'area' => Input::get('area'),
+          'issued_to_staff' => Input::get('issued_to_staff'),
+          'responsible_person' => Input::get('responsible_person'),
+          'receipt_no' => Input::get('receipt_no'),
+         
         );
         $outward_master_id = Outward_master::where('id', '=', $id)->update($outward_master_data);
         return redirect('outward_master')->with('message', 'Outward_master Updated successfully');

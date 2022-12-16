@@ -24,6 +24,26 @@ data-bs-target="#basicModal" style="margin-bottom: 15px"
 >
 Add Outward Entries
 </button>
+<!-- Search start -->
+<button
+type="button"
+class="btn btn-primary"
+data-bs-toggle="modal"
+data-bs-target="#basicModal2" style="margin-bottom: 15px"
+>
+Search
+</button>
+<!-- Search end -->
+
+<!-- Export start -->
+<button
+type="button"
+class="btn btn-primary"
+ style="margin-bottom: 15px"
+ id="exporttable">
+Export
+</button>
+<!-- Export end -->
 <!-- Modal -->
 <div class="modal fade" id="basicModal" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -73,9 +93,56 @@ Add Outward Entries
     <label for="material_description">Material_description:</label>
     <input type="text" class="form-control" id="material_description" name="material_description" required>
   </div>
-    <div class="form-group">
+    <div class="form-group mb-3">
     <label for="opening_stock">Opening_stock:</label>
     <input type="number" class="form-control" id="opening_stock" name="opening_stock" >
+  </div>
+  <div class="mb-3">
+  <label for="opening_stock">required_for:</label>
+    <select id="required_for" name="required_for" class="form-select">
+                  <option>Select required_for</option>                  
+                  @foreach($required_fors as $required_for)
+                    <option value="{{$required_for['id']}}">{{ $required_for['name'] }}</option>
+                  @endforeach
+                </select>
+              </div>
+              <div class="mb-3">
+              <label for="opening_stock">Purpose:</label>
+    <select id="purpose" name="purpose" class="form-select">
+                  <option>Select purpose</option>                  
+                  @foreach($purposes as $purpose)
+                    <option value="{{$purpose['id']}}">{{ $purpose['name'] }}</option>
+                  @endforeach
+                </select>
+              </div>
+  <div class="mb-3">
+    <label for="aa">aa:</label>
+    <input type="text"  class="form-control" id="aa" name="aa">
+  </div>
+  <div class="mb-3">
+    <label for="customer_name">customer_name:</label>
+    <input type="text" class="form-control" id="customer_name" name="customer_name">
+  </div>
+  <div class="mb-3">
+    <label for="mobile">mobile:</label>
+    <input type="text" class="form-control" id="mobile" name="mobile">
+  </div>
+  <div class="mb-3">
+    <label for="area">area:</label>
+    <input type="text"  class="form-control" id="area" name="area">
+  </div>
+
+  <div class="mb-3">
+    <label for="issued_to_staff">issued_to_staff:</label>
+    <input type="text" class="form-control" id="issued_to_staff" name="issued_to_staff">
+  </div>
+  <div class="mb-3">
+    <label for="responsible_person">responsible_person:</label>
+    <input type="text"  class="form-control" id="responsible_person" name="responsible_person">
+  </div>
+  <div class="mb-3">
+    <label for="receipt_no">receipt_no:</label>
+    <input type="text"  class="form-control" id="receipt_no" name="receipt_no">
   </div>
     <div class="form-group">
     <label for="issued">Issued:</label>
@@ -107,14 +174,7 @@ Add Outward Entries
 </div>
 <!-- Modal end -->
 <!-- Button trigger modal -->
-<button
-type="button"
-class="btn btn-primary"
-data-bs-toggle="modal"
-data-bs-target="#basicModal2" style="margin-bottom: 15px"
->
-Search
-</button>
+
 <!-- Modal -->
 <div class="modal fade" id="basicModal2" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -159,15 +219,7 @@ Search
   </div>
 </div>
 <!-- Modal end -->
-<!-- Export start -->
-<button
-type="button"
-class="btn btn-primary"
- style="margin-bottom: 15px"
- id="exporttable">
-Export
-</button>
-<!-- Export end -->
+
 @if(count($outward_masters)>0)
   @foreach($outward_masters as $outward_master)
     <?php $i=1 ?>
@@ -177,22 +229,23 @@ Export
                       <div class="card-subtitle text-muted mb-3">{{$outward_master->issued}} issued on {{$outward_master->issuedon->format('Y-m-d')}} to the branch 
                         {{$Branches[$outward_master->branch_id]['name'] }} </div>
                       <p class="card-text">
-                        Some quick example text to build on the card title and make up the bulk of the card's content.
+                       It is Required For {{$required_fors[$outward_master->required_for]['name'] }} and the purpose is {{$purposes[$outward_master->purpose]['name'] }}
+                       <p class="card-text">
+                      Aa:{{$outward_master->aa}}
+                        </p>
+                        <p class="card-text">
+                        <h5 class="card-title">Customer Details</h5>
+                      Name: {{$outward_master->customer_name}} Mobile: {{$outward_master->mobile}}
+                    <p> {{$outward_master->area}}</p></p>                       
+                  <p class="card-text">
+                 Staff Name :{{$outward_master->issued_to_staff}} <br> Responsible Person: {{$outward_master->responsible_person}} <br>Receipt No:  {{$outward_master->receipt_no}} </p>  
                       </p>
-                      <a href="javascript:void(0)" class="card-link">Card link</a>
-                      <a href="javascript:void(0)" class="card-link">Another link</a>
+                       <a data-bs-toggle="modal"data-bs-target="#basicModall{{$i}}" class="card-link" href="#">Edit</a>
+                       <a class="card-link" href="{{Request::root()}}/outward_master/delete-outward_master/{{$outward_master->id}}" onclick="return confirm('are you sure to delete')"><i class="bx bx-trash me-1"></i> Delete</a>
                     </div>
                   </div>
 
-                  {{-- <div class="card mb-4">
-                    <ul class="list-group list-group-flush">
-                      <li class="list-group-item"> <a href="{{Request::root()}}/inward_master/view-inward_master/{{$outward_master->id}}" > {{$materials[$outward_master->material_id]['name'] }}</a> {{$outward_master->issued}} issued on {{$outward_master->issuedon->format('Y-m-d')}} to the branch 
-                        {{$Branches[$outward_master->branch_id]['name'] }} 
-                      </li>
-                      <li class="list-group-item">Dapibus ac facilisis in</li>
-                      <li class="list-group-item">Vestibulum at eros</li>
-                    </ul>
-                  </div> --}}
+                  
     <?php $i++;  ?>
   @endforeach
 @endif
@@ -206,6 +259,15 @@ Export
         <th>IssuedOn</th>
         <th>CreatedOn</th>
         <th>Branch</th>
+        <th>required_for</th>
+        <th>purpose</th>        
+        <th>aa</th>
+        <th>customer_name</th>
+        <th>mobile</th>
+        <th>area</th>
+        <th>issued_to_staff</th>
+        <th>responsible_person</th>
+        <th>receipt_no</th>
        <th id='noExl'>Actions</th>
       </tr>
     </thead>
@@ -220,6 +282,15 @@ Export
  <td> {{$outward_master->issuedon}}</td>
  <td> {{$outward_master->created_at}}</td>
  <td> {{$Branches[$outward_master->branch_id]['name'] }}</td>
+ <td> {{$required_fors[$outward_master->required_for]['name'] }}</td>
+ <td> {{$purposes[$outward_master->purpose]['name'] }}</td>
+ <td> {{$outward_master->aa}}</td>
+ <td> {{$outward_master->customer_name}}</td>
+ <td> {{$outward_master->mobile}}</td>
+ <td> {{$outward_master->area}}</td>
+ <td> {{$outward_master->issued_to_staff}}</td>
+ <td> {{$outward_master->responsible_person}}</td>
+ <td> {{$outward_master->receipt_no}}</td>
         
         <td  id='noExl'>  
             <div class="dropdown">
@@ -289,6 +360,43 @@ data-bs-target="#basicModall{{$i}}" class="dropdown-item" href="#"
     <div class="mb-3">
     <label for="opening_stock">Opening_stock:</label>
     <input type="text" value="<?php echo $outward_master->opening_stock ?>" class="form-control" id="opening_stock" name="opening_stock">
+  </div>
+  <div class="mb-3">
+    <label for="required_for">required_for:</label>
+    <input type="text" value="<?php echo $outward_master->required_for ?>" class="form-control" id="required_for" name="required_for">
+  </div>
+  <div class="mb-3">
+    <label for="purpose">purpose:</label>
+    <input type="text" value="<?php echo $outward_master->purpose ?>" class="form-control" id="purpose" name="purpose">
+  </div>
+  <div class="mb-3">
+    <label for="aa">aa:</label>
+    <input type="text" value="<?php echo $outward_master->aa ?>" class="form-control" id="aa" name="aa">
+  </div>
+  <div class="mb-3">
+    <label for="customer_name">customer_name:</label>
+    <input type="text" value="<?php echo $outward_master->customer_name ?>" class="form-control" id="customer_name" name="customer_name">
+  </div>
+  <div class="mb-3">
+    <label for="mobile">mobile:</label>
+    <input type="text" value="<?php echo $outward_master->mobile ?>" class="form-control" id="mobile" name="mobile">
+  </div>
+  <div class="mb-3">
+    <label for="area">area:</label>
+    <input type="text" value="<?php echo $outward_master->area ?>" class="form-control" id="area" name="area">
+  </div>
+
+  <div class="mb-3">
+    <label for="issued_to_staff">issued_to_staff:</label>
+    <input type="text" value="<?php echo $outward_master->issued_to_staff ?>" class="form-control" id="issued_to_staff" name="issued_to_staff">
+  </div>
+  <div class="mb-3">
+    <label for="responsible_person">responsible_person:</label>
+    <input type="text" value="<?php echo $outward_master->responsible_person ?>" class="form-control" id="responsible_person" name="responsible_person">
+  </div>
+  <div class="mb-3">
+    <label for="receipt_no">receipt_no:</label>
+    <input type="text" value="<?php echo $outward_master->receipt_no ?>" class="form-control" id="receipt_no" name="receipt_no">
   </div>
     <div class="mb-3">
     <label for="issued">Issued:</label>
