@@ -11,11 +11,10 @@ class Material_master extends Eloquent  {
     static function list()
     {
         $materials=self::all()->toArray();
-        $res=array();   $res['']='';
+        $res=array();
         foreach ($materials as $material) {
-          $res[$material['id']]=$material['name'];
+          $res[$material['id']]=$material;
         }
         return $res;
     }
-
 }

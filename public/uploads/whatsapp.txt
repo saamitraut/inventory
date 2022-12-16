@@ -1,0 +1,19 @@
+https://blog.ultramsg.com/whatsapp-api-by-ultramsg-faq/
+
+
+Select * from (Select top 10 Row_Number() over ( Order by a.id desc) as RowIndex , (select top 1 NAME from SMS_OPERATOR where id=b.OperatorID) as OperatorName,a.Amount,a.CreatedOn,a.DoneBy,a.Remark from (select a.id,a.Amount,a.TopedUpUserId,a.CreatedOn,b.NAME as DoneBy,a.Remark from SMS_VIRTUAL_WALLET_USER a left join SMS_ACCESS b on a.CreatedBy=b.ID where MsoId!=0) a left join SMS_ACCESS b on a.TopedUpUserId=b.id where 1=1 ) x where 1=1
+
+function sendMessage(messageText){
+var messageElement=document.createElement('div');
+messageElement.classList.add('w-50');
+messageElement.classList.add('float-right');
+messageElement.classList.add('shadow-sm');
+messageElement.style.margin="10px";
+messageElement.style.padding="5px";
+
+}
+
+sendBtn.addEventListner('click',function(e){
+let messageText=textbox.value;
+sendMessage(messageText);
+})

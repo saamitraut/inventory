@@ -21,6 +21,7 @@ return array(
     'App\\Http\\Controllers\\Material_masterController' => $baseDir . '/app/Http/Controllers/Material_masterController.php',
     'App\\Http\\Controllers\\Outward_masterController' => $baseDir . '/app/Http/Controllers/Outward_masterController.php',
     'App\\Http\\Controllers\\Purpose_masterController' => $baseDir . '/app/Http/Controllers/Purpose_masterController.php',
+    'App\\Http\\Controllers\\ReportController' => $baseDir . '/app/Http/Controllers/ReportController.php',
     'App\\Http\\Controllers\\Requiredfor_masterController' => $baseDir . '/app/Http/Controllers/Requiredfor_masterController.php',
     'App\\Http\\Controllers\\Return_masterController' => $baseDir . '/app/Http/Controllers/Return_masterController.php',
     'App\\Http\\Controllers\\StockController' => $baseDir . '/app/Http/Controllers/StockController.php',

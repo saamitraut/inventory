@@ -383,6 +383,7 @@ class ComposerStaticInitfadec379fe2ab827517b891d061640b7
         'App\\Http\\Controllers\\Material_masterController' => __DIR__ . '/../..' . '/app/Http/Controllers/Material_masterController.php',
         'App\\Http\\Controllers\\Outward_masterController' => __DIR__ . '/../..' . '/app/Http/Controllers/Outward_masterController.php',
         'App\\Http\\Controllers\\Purpose_masterController' => __DIR__ . '/../..' . '/app/Http/Controllers/Purpose_masterController.php',
+        'App\\Http\\Controllers\\ReportController' => __DIR__ . '/../..' . '/app/Http/Controllers/ReportController.php',
         'App\\Http\\Controllers\\Requiredfor_masterController' => __DIR__ . '/../..' . '/app/Http/Controllers/Requiredfor_masterController.php',
         'App\\Http\\Controllers\\Return_masterController' => __DIR__ . '/../..' . '/app/Http/Controllers/Return_masterController.php',
         'App\\Http\\Controllers\\StockController' => __DIR__ . '/../..' . '/app/Http/Controllers/StockController.php',

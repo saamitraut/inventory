@@ -6,10 +6,8 @@ use App\Models\Branch_master as Branch_master;
 use App\Models\Supplier as Supplier;
 use App\Models\Inward_master as Inward_master;
 use App\Models\Unit_master as Unit_master;
-
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
-use App\Models\Branch_master as Branch_master;
 use Hash;
 use Carbon\Carbon;
 
@@ -19,31 +17,21 @@ class Outward_masterController extends Controller {
       { 
         $data['outward_masters'] = Outward_master::paginate(5);
 
+        // searching purpose
         if (request()->has('material_id')) {
             $data['outward_masters']=Outward_master::where('material_id', '=', request()->input('material_id'))->get();
         }
-        $data['suppliers'] = Supplier::all()->toArray();  
-        // $data['branch_masters'] = Branch_master::all()->toArray();
         if (request()->has('branch_id')) {
           $data['outward_masters']=Outward_master::where('branch_id', '=', request()->input('branch_id'))->get();
-      }
-        $data['units']=Unit_master::all()->toArray();        
-        $materials = Material_master::all()->toArray(); 
-        $res=array();
-        foreach ($materials as $material) {
-          $res[$material['id']]=$material;
         }
-        // echo '<pre>'; print_r($res); exit;     
-        $data['materials'] = $res;
         
-        $Branches = Branch_master::all()->toArray(); 
+        $data['suppliers'] = Supplier::all()->toArray();       
         
-        $res=array();
-        foreach ($Branches as $Branch) {
-          $res[$Branch['id']]=$Branch;
-        }
-        // echo '<pre>'; print_r($res); exit;     
-        $data['Branches'] = $res;
+        $data['units']=Unit_master::all()->toArray();  
+
+        $data['materials'] = Material_master::list();
+        
+        $data['Branches'] = Branch_master::list(); 
         
         return view('outward_master/index',$data);
         
@@ -64,9 +52,7 @@ class Outward_masterController extends Controller {
              'unit_id' => Input::get('unit_id'), 
              'created_at' => Carbon::now()->toDateTimeString(), 
              'unit_id' => Input::get('unit_id'),
-
-             'branch' => Input::get('branch'),
-            
+             'branch' => Input::get('branch'),            
             );
                         $outward_master_id = Outward_master::insert($outward_master_data);
         return redirect('outward_master')->with('message', 'Outward_master successfully added');
